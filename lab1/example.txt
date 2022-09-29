@@ -1,0 +1,5 @@
+int cnt = 1;
+
+do{
+    cnt += 1;
+} while (cnt < 10)
