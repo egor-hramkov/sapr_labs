@@ -1,13 +1,13 @@
 class Lexem:
     
     type = ""
-    lex = ""
+    id = ""
     value = ""
 
-    def __init__(self, _type, _lex, _value):
+    def __init__(self, _type, _id, _value):
         self.type = _type
-        self.lex = _lex
+        self.id = _id
         self.value = _value
 
     def ToString(self):
-        return print(f"lexem type: {self.type};\t lexem id: {self.lex};\t value: {self.value}")
+        return f"lexem type: {self.type};\t lexem id: {self.id};\t value: {self.value}"
