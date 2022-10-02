@@ -20,6 +20,9 @@ class Constants:
         "++": (10, "increment_operation"),
         "--": (11, "decrement_operation"),
         "%": (12, "modulo_operation"),
+        "%=": (13, "modulo_amount_operation"),
+        "*=": (14, "multiply_amount_operation"),
+        "/=": (15, "divide_amount_operation"),
     }
 
     Keywords = {

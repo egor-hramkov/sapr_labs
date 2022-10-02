@@ -1,6 +1,7 @@
 int cnt = 1;
-boolean found = false;
+int found = 3;
 
 do{
     cnt++;
 } while (cnt < 10)
+found *= 1;

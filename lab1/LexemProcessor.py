@@ -21,14 +21,22 @@ class LexemProcessor:
             #main_lst = [s for s in main_string if s != '\n' and s != ' ']
             main_lst = list(main_string)
             for i, obj in enumerate(main_lst):
+                if LexemProcessor.flag_inc:
+                    # LexemProcessor.buffer = ""
+                    LexemProcessor.flag_inc = False
+                    continue
+
                 if obj == '\n' or obj == ' ' or obj == ';' or obj == '{' or obj == '}' or obj == '(' or obj == ')' or obj == '+' or obj == '-' or obj == '*' or obj == '/':
-                    if LexemProcessor.flag_inc:
-                        LexemProcessor.flag_inc = False
-                        continue
                     if LexemProcessor.buffer in Constants.types:
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
 
                     elif obj == '+' and main_lst[i+1] == '+' or obj == '-' and main_lst[i+1] == '-':
+                        LexemProcessor.add_lexem(LexemProcessor.buffer)
+                        LexemProcessor.buffer = "" + obj + main_lst[i + 1]
+                        LexemProcessor.flag_inc = True
+                        continue
+
+                    elif obj == '*' and main_lst[i+1] == '=' or obj == '/' and main_lst[i+1] == '=' or obj == '%' and main_lst[i+1] == '=' or obj == '+' and main_lst[i+1] == '=' or obj == '-' and main_lst[i+1] == '=' :
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
                         LexemProcessor.buffer = "" + obj + main_lst[i + 1]
                         LexemProcessor.flag_inc = True
@@ -48,19 +56,18 @@ class LexemProcessor:
 
                     else:
                         LexemProcessor.add_variable(LexemProcessor.buffer)
+
                     if obj == '\n' or obj == ' ':
                         LexemProcessor.buffer = ""
                     elif obj == '(' or obj == '{':
                         LexemProcessor.buffer = obj
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
                         LexemProcessor.buffer = ""
-
-
                     else:
                         LexemProcessor.buffer = obj
                 else:
                     LexemProcessor.buffer += obj
-
+            LexemProcessor.add_lexem(LexemProcessor.buffer)
             print("list = ", main_lst)
 
         return main_string
