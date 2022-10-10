@@ -4,6 +4,8 @@ class Constants:
         "boolean": (1, "boolean variable"),
         "long": (2, "64-bit integer"),
         "string": (3, "string of chars"),
+        "class": (4, "name of class"),
+        "void": (5, "name of void")
     }
 
     operators = {
@@ -35,7 +37,11 @@ class Constants:
         "else": (6, 'else'),
         "while": (7, 'while'),
         "false": (8, 'false'),
-        "true": (9, 'true')
+        "true": (9, 'true'),
+        "static": (10, 'static'),
+        "void": (11, 'void'),
+        "args": (12, 'args'),
+        "String[]": (13, "String[]"),
     }
 
     KeySymbols = {

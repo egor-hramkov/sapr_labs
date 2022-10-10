@@ -4,7 +4,7 @@ from Models.Variable import Variable
 
 
 processor = LexemProcessor()
-result = processor.process_file("example.txt")
+result = processor.process_file("example2.txt")
 
 print("Lexems:")
 
