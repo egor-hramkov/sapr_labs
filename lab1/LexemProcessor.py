@@ -84,6 +84,7 @@ class LexemProcessor:
         elif strlex in Constants.Keywords:
             l = Lexem("Identifier", Constants.Keywords[strlex][0], Constants.Keywords[strlex][1])
             LexemProcessor.list_lexems.append(l)
+            LexemProcessor.last_variable = strlex
         elif strlex in Constants.KeySymbols:
             l = Lexem("Delimeter", Constants.KeySymbols[strlex][0], Constants.KeySymbols[strlex][1])
             LexemProcessor.list_lexems.append(l)

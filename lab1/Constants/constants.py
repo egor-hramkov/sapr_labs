@@ -4,8 +4,7 @@ class Constants:
         "boolean": (1, "boolean variable"),
         "long": (2, "64-bit integer"),
         "string": (3, "string of chars"),
-        "class": (4, "name of class"),
-        "void": (5, "name of void")
+
     }
 
     operators = {
