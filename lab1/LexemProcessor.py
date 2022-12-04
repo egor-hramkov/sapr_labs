@@ -9,6 +9,7 @@ class LexemProcessor:
     list_lexems = []
     list_variables = []
     list_name_variables = []
+    list_l_and_v = []
     variable_cnt = 0
     last_variable = ""
     buffer = ""
@@ -68,7 +69,7 @@ class LexemProcessor:
                 else:
                     LexemProcessor.buffer += obj
             LexemProcessor.add_lexem(LexemProcessor.buffer)
-            print("list = ", main_lst)
+            #print("list = ", main_lst)
 
         return main_string
 
@@ -77,20 +78,25 @@ class LexemProcessor:
         if strlex in Constants.types:
             l = Lexem("DataType", Constants.types[strlex][0], Constants.types[strlex][1])
             LexemProcessor.list_lexems.append(l)
+            LexemProcessor.list_l_and_v.append(l)
             LexemProcessor.last_variable = strlex
         elif strlex in Constants.operators:
             l = Lexem("Operation", Constants.operators[strlex][0], Constants.operators[strlex][1])
             LexemProcessor.list_lexems.append(l)
+            LexemProcessor.list_l_and_v.append(l)
         elif strlex in Constants.Keywords:
             l = Lexem("Identifier", Constants.Keywords[strlex][0], Constants.Keywords[strlex][1])
             LexemProcessor.list_lexems.append(l)
+            LexemProcessor.list_l_and_v.append(l)
             LexemProcessor.last_variable = strlex
         elif strlex in Constants.KeySymbols:
             l = Lexem("Delimeter", Constants.KeySymbols[strlex][0], Constants.KeySymbols[strlex][1])
             LexemProcessor.list_lexems.append(l)
+            LexemProcessor.list_l_and_v.append(l)
         elif strlex.isdigit():
             l = Lexem("Constant", 0, strlex)
             LexemProcessor.list_lexems.append(l)
+            LexemProcessor.list_l_and_v.append(l)
 
     @staticmethod
     def add_variable(name: str):
@@ -98,4 +104,5 @@ class LexemProcessor:
             LexemProcessor.list_name_variables.append(name)
             v = Variable(LexemProcessor.variable_cnt, LexemProcessor.last_variable, name)
             LexemProcessor.list_variables.append(v)
+            LexemProcessor.list_l_and_v.append(v)
             LexemProcessor.variable_cnt += 1

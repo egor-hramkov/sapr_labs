@@ -9,5 +9,6 @@ class Lexem:
         self.id = _id
         self.value = _value
 
-    def ToString(self):
+    def __str__(self):
         return f"lexem type: {self.type};\t lexem id: {self.id};\t value: {self.value}"
+

@@ -1,7 +1,6 @@
 from Models.Word import Word
 
 
-
 class LexemAnalyzer:
     Line = 1
     Peek = ' '
@@ -16,7 +15,3 @@ class LexemAnalyzer:
     def programming(path):
         with open(path, 'r') as f:
             print(f.read())
-
-
-
-

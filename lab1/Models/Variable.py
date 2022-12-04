@@ -9,5 +9,7 @@ class Variable:
         self.dataType = _dataType
         self.name = _name
 
-    def ToString(self):
+    def __str__(self):
         return f"<{self.id}> Variable of type <{self.dataType}> with name <{self.name}>"
+
+

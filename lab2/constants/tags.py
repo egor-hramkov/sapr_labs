@@ -1,5 +1,4 @@
 Tags = {
-
     "And": 256,
     "Basic": 257,
     "Break": 258,
@@ -20,5 +19,4 @@ Tags = {
     "Temp": 273,
     "True": 274,
     'While': 275
-
 }
