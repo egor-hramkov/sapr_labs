@@ -4,8 +4,8 @@ public class Test {
     do {
         cnt++;
         do {
-        cnt++;
-        } while (cnt < 10)
-    } while (cnt < 10)
+            cnt++;
+        } while (cnt < 10);
+    } while (cnt < 10);
    }
 }

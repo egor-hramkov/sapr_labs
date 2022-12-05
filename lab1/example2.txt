@@ -3,6 +3,6 @@ public class Test {
     int cnt = 1;
     do {
         cnt++;
-    } while (cnt < 10)
+    } while (cnt < 10);
    }
 }

@@ -1,9 +1,9 @@
 class Constants:
     types = {
         "int": (0, "32-bit integer"),
-        "boolean": (1, "boolean variable"),
+        "boolean": (1, "boolean"),
         "long": (2, "64-bit integer"),
-        "string": (3, "string of chars"),
+        "String": (3, "string of chars"),
 
     }
 
@@ -35,8 +35,8 @@ class Constants:
         "if": (5, 'if'),
         "else": (6, 'else'),
         "while": (7, 'while'),
-        "false": (8, 'false'),
-        "true": (9, 'true'),
+        "False": (8, 'false'),
+        "True": (9, 'true'),
         "static": (10, 'static'),
         "void": (11, 'void'),
         "args": (12, 'args'),
@@ -52,5 +52,6 @@ class Constants:
         "[": (5, '['),
         "]": (6, ']'),
         "{": (7, '{'),
-        "}": (8, '}')
+        "}": (8, '}'),
+        '"': (9, '"'),
     }

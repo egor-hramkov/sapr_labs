@@ -14,6 +14,7 @@ class LexemProcessor:
     last_variable = ""
     buffer = ""
     flag_inc = False
+    prev_oper = ""
 
     @staticmethod
     def process_file(path: str):
@@ -21,6 +22,7 @@ class LexemProcessor:
             main_string = file.read()
             #main_lst = [s for s in main_string if s != '\n' and s != ' ']
             main_lst = list(main_string)
+
             for i, obj in enumerate(main_lst):
                 if LexemProcessor.flag_inc:
                     # LexemProcessor.buffer = ""
@@ -53,7 +55,14 @@ class LexemProcessor:
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
 
                     elif LexemProcessor.buffer.isdigit():
+                        LexemProcessor.prev_oper = ""
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
+
+                    elif LexemProcessor.prev_oper == "assign_operation":
+                        LexemProcessor.prev_oper = ""
+                        l = Lexem("Constant", 0, LexemProcessor.buffer)
+                        LexemProcessor.list_lexems.append(l)
+                        LexemProcessor.list_l_and_v.append(l)
 
                     else:
                         LexemProcessor.add_variable(LexemProcessor.buffer)
@@ -82,6 +91,8 @@ class LexemProcessor:
             LexemProcessor.last_variable = strlex
         elif strlex in Constants.operators:
             l = Lexem("Operation", Constants.operators[strlex][0], Constants.operators[strlex][1])
+            if Constants.operators[strlex][1] == "assign_operation":
+                LexemProcessor.prev_oper = "assign_operation"
             LexemProcessor.list_lexems.append(l)
             LexemProcessor.list_l_and_v.append(l)
         elif strlex in Constants.Keywords:

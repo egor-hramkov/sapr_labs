@@ -1,7 +1,7 @@
-int cnt = 1;
-int found = 3;
+int cnt = 3;
+int found = 2;
 
 do{
     cnt++;
-} while (cnt < 10)
+} while (cnt < 10);
 found *= 1;
