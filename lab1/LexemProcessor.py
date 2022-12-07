@@ -15,9 +15,12 @@ class LexemProcessor:
     buffer = ""
     flag_inc = False
     prev_oper = ""
+    dict_v = {}
+
 
     @staticmethod
     def process_file(path: str):
+
         with open(path, 'r', encoding='utf-8') as file:
             main_string = file.read()
             #main_lst = [s for s in main_string if s != '\n' and s != ' ']
@@ -33,7 +36,9 @@ class LexemProcessor:
                     if LexemProcessor.buffer in Constants.types:
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
 
+                    #SUDA VNIMANUE
                     elif obj == '+' and main_lst[i+1] == '+' or obj == '-' and main_lst[i+1] == '-':
+                        LexemProcessor.add_variable(LexemProcessor.buffer)
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
                         LexemProcessor.buffer = "" + obj + main_lst[i + 1]
                         LexemProcessor.flag_inc = True
@@ -111,9 +116,13 @@ class LexemProcessor:
 
     @staticmethod
     def add_variable(name: str):
-        if name != "" and name not in LexemProcessor.list_name_variables:
+        if name != "":
             LexemProcessor.list_name_variables.append(name)
-            v = Variable(LexemProcessor.variable_cnt, LexemProcessor.last_variable, name)
+            if name in LexemProcessor.dict_v:
+                v = Variable(LexemProcessor.variable_cnt, LexemProcessor.dict_v[name], name)
+            else:
+                v = Variable(LexemProcessor.variable_cnt, LexemProcessor.last_variable, name)
+                LexemProcessor.dict_v[name] = LexemProcessor.last_variable
             LexemProcessor.list_variables.append(v)
             LexemProcessor.list_l_and_v.append(v)
             LexemProcessor.variable_cnt += 1

@@ -13,6 +13,36 @@ class Node:
 class Parser:
     main_str = ""
 
+
+    @staticmethod
+    def check_type(type, variable, err_str):
+        error = ""
+        if type == "int":
+            if not variable.isnumeric() or variable.__contains__("."):
+                error = "Illegal type exception on line " + str(err_str)
+            elif int(variable) > 2147483647 or -2147483648 > int(variable):
+                error = "ArithmeticException: int overflow " + str(err_str)
+
+        elif type == "String":
+            if variable.isdigit() or not variable.startswith('"') or not variable.endswith('"'):
+                error = "Illegal type exception on line " + str(err_str)
+
+        elif type == "boolean":
+            if variable != "true" and variable != "false":
+                error = "Illegal type exception on line " + str(err_str)
+
+        elif type == "float":
+            if variable.__contains__('"'):
+                error = "Illegal type exception on line " + str(err_str)
+            elif float(variable) > 10**38 or -10**38 > float(variable):
+                error = "ArithmeticException: float overflow" + str(err_str)
+
+        elif type == "double":
+            if variable.__contains__('"'):
+                error = "Illegal type exception on line " + str(err_str)
+
+        return error
+
     @staticmethod
     def make_tree(path):
         if not os.path.exists(path):
@@ -32,8 +62,10 @@ class Parser:
         do_flag = False
         void_flag = False
         error = ""
-        last_v = ""
+        type_last_v = ""
         err_str = 1
+        dict_v = {}
+        name_last_v = ""
 
         with open("tree.txt", "w") as f:
             print(lexs)
@@ -41,19 +73,27 @@ class Parser:
                 if l != "":
                     temp_lex = l.split(";")
                     if temp_lex[0] == "Variable":
+                        if temp_lex[3] not in dict_v:
+                            dict_v[temp_lex[3]] = temp_lex[2]
                         n = Node(temp_lex[0], temp_lex[1], temp_lex[2], temp_lex[3])
-                        last_v = temp_lex[2]
+                        type_last_v = temp_lex[2]
+                        name_last_v = temp_lex[3]
 
+
+                    #ПРОВЕРКА НА ТИПЫ ДАННЫХ!!!!!!!!!
                     elif temp_lex[0] == "Constant":
                         if error == "":
-                            if last_v == "int" and not temp_lex[2].isnumeric():
-                                error = "Illegal type exception on line " + str(err_str)
-                            elif last_v == "String" and temp_lex[2].isdigit():
-                                error = "Illegal type exception on line " + str(err_str)
-                            elif last_v == "boolean" and temp_lex[2] != "true" and temp_lex[2] != "false":
-                                error = "Illegal type exception on line " + str(err_str)
+                            error = Parser.check_type(type_last_v, temp_lex[2], err_str)
 
+                    elif temp_lex[0] == "Operation" and temp_lex[2] == "increment_operation":
+                        if error == "" and type_last_v != "int":
+                            error = "Illegal type exception on line " + str(err_str)
                         n = Node(temp_lex[0], temp_lex[2])
+
+                    elif temp_lex[0] == "Variable":
+                        name_last_v = temp_lex[3]
+                        type_last_v = temp_lex[2]
+
                     elif temp_lex[0] == "Identifier":
                         n = Node(temp_lex[0], temp_lex[2])
                     else:
@@ -117,5 +157,5 @@ class Parser:
                         branch += "               "
                         f.write(branch + "|\n")
             if error != "":
-                print("Error: " + error)
+                print("\nError: " + error)
 

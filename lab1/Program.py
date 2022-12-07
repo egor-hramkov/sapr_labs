@@ -7,8 +7,8 @@ from Models.Variable import Variable
 processor = LexemProcessor()
 result = processor.process_file("example.txt")
 
-print("Lexems:")
-
+# print("Lexems:")
+#
 # for l in LexemProcessor.list_lexems:
 #     print(l)
 #
@@ -21,7 +21,7 @@ print("Lexems:")
 
 with open("temp.txt", "w") as f:
     for elem in LexemProcessor.list_l_and_v:
-        print(elem)
+        #print(elem)
         if isinstance(elem, Lexem):
             f.write(f"{elem.type};{elem.id};{elem.value}\n")
         if isinstance(elem, Variable):
