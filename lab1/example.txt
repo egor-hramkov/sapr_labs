@@ -1,4 +1,4 @@
-int cnt = 3;
+int cnt = 2;
 int found = 2;
 float f = 0.3;
 do {

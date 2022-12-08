@@ -12,34 +12,33 @@ class Node:
 
 class Parser:
     main_str = ""
-
-
+    tree = []
     @staticmethod
     def check_type(type, variable, err_str):
         error = ""
         if type == "int":
             if not variable.isnumeric() or variable.__contains__("."):
-                error = "Illegal type exception on line " + str(err_str)
+                error = "\nIllegal type exception on line " + str(err_str)
             elif int(variable) > 2147483647 or -2147483648 > int(variable):
-                error = "ArithmeticException: int overflow " + str(err_str)
+                error = "\nArithmeticException: int overflow " + str(err_str)
 
         elif type == "String":
             if variable.isdigit() or not variable.startswith('"') or not variable.endswith('"'):
-                error = "Illegal type exception on line " + str(err_str)
+                error = "\nIllegal type exception on line " + str(err_str)
 
         elif type == "boolean":
             if variable != "true" and variable != "false":
-                error = "Illegal type exception on line " + str(err_str)
+                error = "\nIllegal type exception on line " + str(err_str)
 
         elif type == "float":
             if variable.__contains__('"'):
-                error = "Illegal type exception on line " + str(err_str)
+                error = "\nIllegal type exception on line " + str(err_str)
             elif float(variable) > 10**38 or -10**38 > float(variable):
-                error = "ArithmeticException: float overflow" + str(err_str)
+                error = "\nArithmeticException: float overflow" + str(err_str)
 
         elif type == "double":
             if variable.__contains__('"'):
-                error = "Illegal type exception on line " + str(err_str)
+                error = "\nIllegal type exception on line " + str(err_str)
 
         return error
 
@@ -82,13 +81,13 @@ class Parser:
 
                     #ПРОВЕРКА НА ТИПЫ ДАННЫХ!!!!!!!!!
                     elif temp_lex[0] == "Constant":
-                        if error == "":
-                            error = Parser.check_type(type_last_v, temp_lex[2], err_str)
+                        error += Parser.check_type(type_last_v, temp_lex[2], err_str)
+                        n = Node(temp_lex[0], temp_lex[2])
 
                     elif temp_lex[0] == "Operation" and temp_lex[2] == "increment_operation":
-                        if error == "" and type_last_v != "int":
-                            error = "Illegal type exception on line " + str(err_str)
-                        n = Node(temp_lex[0], temp_lex[2])
+                        if type_last_v != "int":
+                            error += "\nIllegal type exception on line " + str(err_str)
+                        n = Node(temp_lex[0], None,temp_lex[2])
 
                     elif temp_lex[0] == "Variable":
                         name_last_v = temp_lex[3]
@@ -110,6 +109,7 @@ class Parser:
                         f.write(branch + "|\n" + branch + "----------------\n")
                         branch += "               "
                         f.write(branch + "|\n")
+                        Parser.tree.append(n)
                         continue
 
                     if temp_lex[0] == "Variable" and temp_lex[2] == "void":
@@ -124,6 +124,7 @@ class Parser:
                         f.write(branch + "|\n" + branch + "----------------\n")
                         branch += "               "
                         f.write(branch + "|\n")
+                        Parser.tree.append(n)
                         continue
 
                     if temp_lex[0] == "Delimeter" and temp_lex2[0] == "Delimeter" and temp_lex[2] == "}" and temp_lex2[2] == "}":
@@ -131,6 +132,7 @@ class Parser:
                         f.write(branch + "|\n" + branch + "----------------\n")
                         branch += "               "
                         f.write(branch + "|\n")
+                        Parser.tree.append(n)
                         continue
 
                     if temp_lex[0] == "Constant":
@@ -140,7 +142,7 @@ class Parser:
                         f.write(branch + f"{n.node_name} Node: \n{branch} -{n.type}\n")
 
                     elif temp_lex[0] == "Operation":
-                        f.write(branch + f"{n.node_name} Node: \n{branch} -{n.type}\n")
+                        f.write(branch + f"{n.node_name} Node: \n{branch} -{n.value}\n")
 
                     elif temp_lex[0] == "Delimeter":
                         f.write(branch + f"{n.node_name} Node: \n{branch} -type: {n.type}\n")
@@ -156,6 +158,9 @@ class Parser:
                         f.write(branch + "|\n" + branch + "----------------\n")
                         branch += "               "
                         f.write(branch + "|\n")
+
+                    Parser.tree.append(n)
+
             if error != "":
-                print("\nError: " + error)
+                print("\nErrors: " + error)
 

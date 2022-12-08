@@ -1,9 +1,9 @@
 class Constants:
     types = {
-        "int": (0, "32-bit integer"),
+        "int": (0, "int"),
         "boolean": (1, "boolean"),
-        "long": (2, "64-bit integer"),
-        "String": (3, "string of chars"),
+        "long": (2, "long"),
+        "String": (3, "String"),
         "float": (4, "float"),
         "double": (5, "double")
     }

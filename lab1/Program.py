@@ -2,10 +2,10 @@ from LexemProcessor import LexemProcessor
 from Parser import Parser
 from Models.Lexem import Lexem
 from Models.Variable import Variable
+from generate import generate
 
 
-processor = LexemProcessor()
-result = processor.process_file("example.txt")
+result = LexemProcessor.process_file("example3.txt")
 
 # print("Lexems:")
 #
@@ -28,3 +28,8 @@ with open("temp.txt", "w") as f:
             f.write(f"Variable;{elem.id};{elem.dataType};{elem.name}\n")
 
 pars = Parser.make_tree("temp.txt")
+
+# for t in Parser.tree:
+#     print(t.node_name, t.value, t.type, t.v_name)
+#generate_code("temp.txt")
+generate(Parser.tree)
