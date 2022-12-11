@@ -16,7 +16,10 @@ def generate(tree):
 
             match node.node_name:
                 case "DataType":
-                    f.write(node.type + space)
+                    if node.type == "boolean":
+                        f.write("bool" + space)
+                    else:
+                        f.write(node.type + space)
 
                 case "Variable":
                     if next_node.type in ("increment_operation", "decrement_operation"):

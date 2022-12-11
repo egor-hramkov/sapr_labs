@@ -13,6 +13,7 @@ class Node:
 class Parser:
     main_str = ""
     tree = []
+
     @staticmethod
     def check_type(type, variable, err_str):
         error = ""

@@ -7,17 +7,17 @@ from generate import generate
 
 result = LexemProcessor.process_file("example3.txt")
 
-# print("Lexems:")
-#
-# for l in LexemProcessor.list_lexems:
-#     print(l)
-#
-# print("===================================================================\nVariables:")
-#
-# for v in LexemProcessor.list_variables:
-#     print(v)
-#
-# print("===================================================================")
+print("Lexems:")
+
+for l in LexemProcessor.list_lexems:
+    print(l)
+
+print("===================================================================\nVariables:")
+
+for v in LexemProcessor.list_variables:
+    print(v)
+
+print("===================================================================")
 
 with open("temp.txt", "w") as f:
     for elem in LexemProcessor.list_l_and_v:

@@ -36,7 +36,6 @@ class LexemProcessor:
                     if LexemProcessor.buffer in Constants.types:
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
 
-                    #SUDA VNIMANUE
                     elif obj == '+' and main_lst[i+1] == '+' or obj == '-' and main_lst[i+1] == '-':
                         LexemProcessor.add_variable(LexemProcessor.buffer)
                         LexemProcessor.add_lexem(LexemProcessor.buffer)
@@ -117,12 +116,14 @@ class LexemProcessor:
     @staticmethod
     def add_variable(name: str):
         if name != "":
-            LexemProcessor.list_name_variables.append(name)
+
             if name in LexemProcessor.dict_v:
                 v = Variable(LexemProcessor.variable_cnt, LexemProcessor.dict_v[name], name)
             else:
                 v = Variable(LexemProcessor.variable_cnt, LexemProcessor.last_variable, name)
                 LexemProcessor.dict_v[name] = LexemProcessor.last_variable
-            LexemProcessor.list_variables.append(v)
+            if name not in LexemProcessor.list_name_variables:
+                LexemProcessor.list_name_variables.append(name)
+                LexemProcessor.list_variables.append(v)
             LexemProcessor.list_l_and_v.append(v)
             LexemProcessor.variable_cnt += 1
